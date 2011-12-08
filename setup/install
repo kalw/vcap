@@ -140,7 +140,7 @@ sudo /etc/init.d/nginx restart
 elif [ $PLATFORM == 'MacOSX' ]; then
 echo "Need to manually copy config 'setup/simple.nginx.conf' in the right place and restart nginx"
 elif [ $PLATFORM == 'FreeBSD' ]; then
-sudo cp setup/simple.nginx.conf /usr/local/etc/nginx.conf
+sudo cp setup/simple.nginx.conf /usr/local/etc/nginx/nginx.conf
 echo "nginx_enable=YES" | sudo tee -a /etc/rc.conf
 sudo /usr/loccal/etc/rc.d/nginx start 
 fi
@@ -151,7 +151,7 @@ gem install bundler --no-rdoc --no-ri
 rake bundler:install
 
 # don't start up vcap in this shell
-# its best to exit the shell and then
+# its best to exit the sThell and then
 # come back in so that the .rvmrc in cloudfoundry/vcap activates correctly
 
 echo 'Success!'
