@@ -45,7 +45,7 @@ if [ $PLATFORM == 'Linux' ]; then
   sudo apt-get update
   sudo apt-get -qqy install coreutils autoconf curl git-core ruby bison build-essential zlib1g-dev libssl-dev libreadline5-dev
 elif [ $OS == 'FreeBSD' ]; then
-  sudo pkg_add -r ruby18 git autoconf bison curl coreutils readline openssl lzlib nginx bash
+  sudo pkg_add -r ruby18 git autoconf bison curl coreutils readline openssl lzlib nginx bash mysql51-server
 else
   echo "Sorry, we can't install dependencies for your system yet."
 fi
@@ -139,7 +139,8 @@ elif [ $PLATFORM == 'MacOSX' ]; then
 echo "Need to manually copy config 'setup/simple.nginx.conf' in the right place and restart nginx"
 elif [ $PLATFORM == 'FreeBSD' ]; then
 sudo cp setup/simple.nginx.conf /usr/local/etc/nginx.conf
-sudo /usr/loccal/etc/rc.d/nginx onestart 
+echo "nginx_enable=YES" | sudo tee -a /etc/rc.conf
+sudo /usr/loccal/etc/rc.d/nginx start 
 fi
 
 echo "Installing bundler"
