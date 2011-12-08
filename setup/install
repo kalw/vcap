@@ -21,10 +21,12 @@ sudoCmd=`whereis -bq sudo`
 bashCmd=`whereis -bq bash`
 if [ "$bashCmd" = "" ]; then
     echo "Bash installation is mandatory, cancelling setup"
+    exit 1
 fi
 
 if [ "$sudoCmd" = "" ]; then
     echo "Sudo installation is mandatory, cancelling setup"
+    exit 1
 fi
 
 echo ""
