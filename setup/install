@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Allow VCAP_REPO to be overriden for testing
 VCAP_REPO=${VCAP_REPO:-https://github.com/cloudfoundry/vcap.git}
@@ -15,6 +15,16 @@ elif [[ $OS == 'FreeBSD' ]]; then
 else
     echo "Unknown System, cancelling setup"
     exit 1
+fi
+
+sudoCmd=`whereis -bq sudo`
+bashCmd=`whereis -bq bash`
+if [[ "$bashCmd" = "" ]]; then
+    echo "Bash installation is mandatory, cancelling setup"
+fi
+
+if [[ "$sudoCmd" = "" ]]; then
+    echo "Sudo installation is mandatory, cancelling setup"
 fi
 
 echo ""
@@ -35,7 +45,7 @@ if [[ $PLATFORM == 'Linux' ]]; then
   sudo apt-get update
   sudo apt-get -qqy install coreutils autoconf curl git-core ruby bison build-essential zlib1g-dev libssl-dev libreadline5-dev
 elif [[ $OS == 'FreeBSD' ]]; then
-  sudo pkg_add -r ruby18 git autoconf bison curl coreutils readline openssl lzlib nginx
+  sudo pkg_add -r ruby18 git autoconf bison curl coreutils readline openssl lzlib nginx bash
 else
   echo "Sorry, we can't install dependencies for your system yet."
 fi
